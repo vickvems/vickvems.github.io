@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <meta name="generator" content="AsciiDoc 8.6.9" />
-<title>Exercícios Laboratório.</title>
+<title>Laboratório 3</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
 
@@ -733,21 +733,335 @@ asciidoc.install();
 </head>
 <body class="article">
 <div id="header">
-<h1>Exercícios Laboratório.</h1>
+<h1>Laboratório 3</h1>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_exercício_1">Exercício 1</h2>
 <div class="sectionbody">
-<div class="paragraph"><p><a href="http://vickvems.github.io/lab1.html">Laboratório 1</a></p></div>
-<div class="paragraph"><p><a href="http://vickvems.github.io/lab2.html">Laboratório 2</a></p></div>
-<div class="paragraph"><p><a href="http://vickvems.github.io/lab3.html">Laboratório 3</a></p></div>
+<div class="paragraph"><p>Utilizando o programa preenchimento.c como referência, implemente um programa selecao.c.
+Este programa deverá desenhar numa janela com fundo branco, de dimensões 256x256 pixels, quatro polígonos com as mesmas coordenadas dos polígonos do programa de referência.
+Todos os polígonos devem estar inicialmente preenchidos de amarelo e com bordas pretas.
+Quando o usuário clicar com o botão esquerdo do mouse dentro de um dos polígonos, a cor de preechimento deste polígono deverá mudar para uma cor aleatória.
+Quando a tecla b (keycode=98) for pressionada, o programa passará a mudar as cores das bordas e não mais dos fundos dos polígonos.
+Quando a tecla f (keycode=102) for pressionada, o programa passará a mudar as cores dos fundos dos polígonos e não mais das bordas.</p></div>
+<div class="listingblock">
+<div class="title">Código</div>
+<div class="content">
+<pre><code>#include &lt;GL/glut.h&gt;
+#include &lt;stdlib.h&gt;
+
+GLfloat rl[4],gl[4],bl[4],rf[4],gf[4],bf[4];
+int comando;
+
+void init(void);
+void display(void);
+void keyboard(unsigned char key, int x, int y);
+void mouse(int button, int state, int x, int y);
+void mudaCor(int index);
+
+int main(int argc, char** argv){
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
+  glutInitWindowSize (256, 256);
+  glutInitWindowPosition (100, 100);
+  glutCreateWindow ("Preenchendo regiões");
+  init();
+  glutDisplayFunc(display);
+  glutKeyboardFunc(keyboard);
+  glutMouseFunc(mouse);
+  glutMainLoop();
+  return 0;
+}
+
+void init(void){
+  glClearColor(1.0, 1.0, 1.0, 1.0);
+  glOrtho (0, 256, 0, 256, -1 ,1);
+        //inicializa as cores das bordas e fundos
+  int i=0;
+  comando=2;
+  for(i=0;i&lt;4;i++){
+        rf[i]=1; gf[i]=1; bf[i]=0;
+        rl[i]=0; gl[i]=0; bl[i]=0;
+  }
+}
+
+void display(void){
+  glClear(GL_COLOR_BUFFER_BIT);
+  glDisable(GL_POLYGON_STIPPLE);
+
+  glPolygonMode(GL_BACK, GL_FILL);
+  glColor3f(rf[0], gf[0], bf[0]);
+  glBegin(GL_POLYGON);
+  glVertex2i(30,226);  glVertex2i(113,226);
+  glVertex2i(113,143); glVertex2i(30,143);
+  glEnd();
+  glPolygonMode(GL_BACK, GL_LINE);
+  glColor3f(rl[0], gl[0], bl[0]);
+  glBegin(GL_POLYGON);
+  glVertex2i(30,226);  glVertex2i(113,226);
+  glVertex2i(113,143); glVertex2i(30,143);
+  glEnd();
+
+  glPolygonMode(GL_BACK, GL_FILL);
+  glColor3f(rf[1], gf[1], bf[1]);
+  glBegin(GL_POLYGON);
+  glVertex2i(143,226); glVertex2i(226,226);
+  glVertex2i(226,143); glVertex2i(143,143);
+  glEnd();
+  glPolygonMode(GL_BACK, GL_LINE);
+  glColor3f(rl[1], gl[1], bl[1]);
+  glBegin(GL_POLYGON);
+  glVertex2i(143,226); glVertex2i(226,226);
+  glVertex2i(226,143); glVertex2i(143,143);
+  glEnd();
+
+  glPolygonMode(GL_BACK, GL_FILL);
+  glColor3f(rf[2], gf[2], bf[2]);
+  glBegin(GL_POLYGON);
+  glVertex2i(30,113);
+  glVertex2i(113,113);
+  glVertex2i(113,30);
+  glVertex2i(30,30);
+  glEnd();
+  glPolygonMode(GL_BACK, GL_LINE);
+  glColor3f(rl[2], gl[2], bl[2]);
+  glBegin(GL_POLYGON);
+  glVertex2i(30,113);
+  glVertex2i(113,113);
+  glVertex2i(113,30);
+  glVertex2i(30,30);
+  glEnd();
+
+  glPolygonMode(GL_BACK, GL_FILL);
+  glColor3f(rf[3], gf[3], bf[3]);
+  glBegin(GL_POLYGON);
+  glVertex2i(143,113); glVertex2i(226,113);
+  glVertex2i(226,30); glVertex2i(143,30);
+  glEnd();
+  glPolygonMode(GL_BACK, GL_LINE);
+  glColor3f(rl[3], gl[3], bl[3]);
+  glBegin(GL_POLYGON);
+  glVertex2i(143,113); glVertex2i(226,113);
+  glVertex2i(226,30); glVertex2i(143,30);
+  glEnd();
+
+  glFlush();
+  glutSwapBuffers();
+
+}
+
+void keyboard(unsigned char key, int x, int y){
+  switch (key) {
+  case 98:
+        comando=1;
+        break;
+  case 102:
+        comando=2;
+        break;
+  }
+}
+
+void mudaCor(int index){
+        if(comando==2){
+                rf[index]=(GLfloat)rand()/(RAND_MAX+1.0);
+                gf[index]=(GLfloat)rand()/(RAND_MAX+1.0);
+                bf[index]=(GLfloat)rand()/(RAND_MAX+1.0);
+        }else{
+                rl[index]=(GLfloat)rand()/(RAND_MAX+1.0);
+                gl[index]=(GLfloat)rand()/(RAND_MAX+1.0);
+                bl[index]=(GLfloat)rand()/(RAND_MAX+1.0);
+        }
+}
+
+void mouse(int button, int state, int x, int y){
+  switch (button) {
+  case GLUT_LEFT_BUTTON:
+        if (state == GLUT_DOWN) {
+                if(x&gt;=30&amp;&amp;x&lt;=113 &amp;&amp;y&gt;=143&amp;y&lt;=226){
+                        mudaCor(2);
+                }else if(x&gt;=143&amp;&amp;x&lt;=226 &amp;&amp;y&gt;=143&amp;y&lt;=226){
+                        mudaCor(3);
+                }else if(x&gt;=30&amp;&amp;x&lt;=113 &amp;&amp;y&gt;=30&amp;y&lt;=113){
+                        mudaCor(0);
+                }else if(x&gt;=143&amp;&amp;x&lt;=226 &amp;&amp;y&gt;=30&amp;y&lt;=113){
+                        mudaCor(1);
+                }
+
+        }
+        glutPostRedisplay();
+        break;
+  }
+}</code></pre>
+</div></div>
+<div class="imageblock">
+<div class="content">
+<img src="img_selecao.jpg" alt="img_selecao.jpg" />
+</div>
+<div class="title">Figure 1. Resultado:</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercício_2">Exercício 2</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Repita o item anterior utilizando buffer simples e comente os resultados obtidos.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>        O uso de buffer simples faz com que todos os objetos sejam desenhados no buffer principal.
+        O buffer duplo evita efeitos indesejáveis, cintilações e a visualização do processo de desenho.
+        O método onde pode ser modificado o tipo de buffer é glutInitDisplayMode (GLUT_SINGLE).</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercício_3">Exercício 3</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Crie um padrão de preenchimento com as iniciais dos seu nome e sobre nome, por exemplo, AB, para Agostinho Brito.
+Implemente um programa que desenhe em uma janela de fundo branco de dimensões 300x300 pixels um hexágono com bounding box de dimensões 200x200 pixels.
+O hexágono deve estar centrado na tela e preenchido com cor azul, utilize este padrão de preenchimento criado.</p></div>
+<div class="listingblock">
+<div class="title">Código</div>
+<div class="content">
+<pre><code>#include &lt;GL/glut.h&gt;
+#include &lt;stdlib.h&gt;
+
+GLubyte tux[] = {
+        0x0,  0x0,  0x0,  0x0,
+        0x0,  0x0,  0x0,  0x0,
+        0x10,  0x01,  0x0f,  0xf8,
+        0x10,  0x01,  0x0,  0x04,
+        0x10,  0x01,  0x0,  0x02,
+        0x10,  0x01,  0x0,  0x02,
+        0x10,  0x01,  0x0,  0x02,
+        0x10,  0x01,  0x0,  0x02,
+        0x10,  0x01,  0x0,  0x04,
+        0x10,  0x41,  0x03,  0xf8,
+        0x10,  0xa1,  0x04,  0x0,
+        0x11,  0x11,  0x08,  0x0,
+        0x12,  0x09,  0x08,  0x0,
+        0x14,  0x05,  0x04,  0x0,
+        0x18,  0x03,  0x03,  0xfe,
+        0x0,  0x0,  0x0,  0x0,
+        0x0,  0x0,  0x0,  0x0,
+        0x0,  0x40,  0x0f,  0xfe,
+        0x0,  0xa0,  0x08,  0x0,
+        0x0,  0xa0,  0x08,  0x0,
+        0x0,  0xa0,  0x08,  0x0,
+        0x01,  0x10,  0x08,  0x0,
+        0x01,  0x10,  0x08,  0x0,
+        0x02,  0x08,  0x1f,  0xf8,
+        0x02,  0x08,  0x08,  0x0,
+        0x04,  0x04,  0x08,  0x0,
+        0x04,  0x04,  0x08,  0x0,
+        0x08,  0x02,  0x08,  0x0,
+        0x08,  0x02,  0x08,  0x0,
+        0x10,  0x01,  0x0f,  0xfe,
+        0x0,  0x0,  0x0,  0x0,
+        0x0,  0x0,  0x0,  0x0
+};
+
+GLfloat r,g,b;
+
+void init(void);
+void display(void);
+void keyboard(unsigned char key, int x, int y);
+void mouse(int button, int state, int x, int y);
+
+int main(int argc, char** argv){
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
+  glutInitWindowSize (300, 300);
+  glutInitWindowPosition (100, 100);
+  glutCreateWindow ("Preenchendo regiões");
+  init();
+  glutDisplayFunc(display);
+  glutKeyboardFunc(keyboard);
+  glutMouseFunc(mouse);
+  glutMainLoop();
+  return 0;
+}
+
+void init(void){
+  glClearColor(1.0, 1.0, 1.0, 1.0);
+  glOrtho (0, 300, 0, 300, -1 ,1);
+  r=0; g=1; b=0;
+}
+
+void display(void){
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glPolygonMode(GL_BACK, GL_FILL);
+        glColor3f(0.0, 0.0, 1.0);
+        glBegin(GL_POLYGON);
+        glVertex2i(150,250);
+        glVertex2i(250,184);
+        glVertex2i(250,118);
+        glVertex2i(150,50);
+        glVertex2i(50,118);
+        glVertex2i(50,184);
+        glEnd();
+
+        glEnable(GL_POLYGON_STIPPLE);
+        glColor3f(1.0, 0.0, 1.0);
+        glPolygonStipple(tux);
+        glBegin(GL_POLYGON);
+        glVertex2i(150,250);
+        glVertex2i(250,184);
+        glVertex2i(250,118);
+        glVertex2i(150,50);
+        glVertex2i(50,118);
+        glVertex2i(50,184);
+        glEnd();
+
+        glDisable(GL_POLYGON_STIPPLE);
+        glPolygonMode(GL_BACK, GL_LINE);
+        glColor3f(0.0, 0.0, 0.0);
+        glBegin(GL_POLYGON);
+        glVertex2i(50,250);
+        glVertex2i(250,250);
+        glVertex2i(250,50);
+        glVertex2i(50,50);
+        glEnd();
+
+  glFlush();
+  glutSwapBuffers();
+}
+
+void keyboard(unsigned char key, int x, int y){
+  switch (key) {
+  case 27:
+        exit(0);
+        break;
+  }
+}
+
+void mouse(int button, int state, int x, int y){
+  switch (button) {
+  case GLUT_LEFT_BUTTON:
+        if (state == GLUT_DOWN) {
+          r=(GLfloat)rand()/(RAND_MAX+1.0);
+          g=(GLfloat)rand()/(RAND_MAX+1.0);
+          b=(GLfloat)rand()/(RAND_MAX+1.0);
+          glutPostRedisplay();
+        }
+        break;
+  }
+}</code></pre>
+</div></div>
+<div class="imageblock">
+<div class="content">
+<img src="img_selecao2.jpg" alt="img_selecao2.jpg" />
+</div>
+<div class="title">Figure 2. Resultados</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-09-08 01:26:45 BRT
+Last updated 2015-09-08 01:30:48 BRT
 </div>
 </div>
 </body>

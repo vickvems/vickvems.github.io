@@ -1,1 +1,0 @@
-# vickvems.github.io
