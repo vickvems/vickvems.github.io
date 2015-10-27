@@ -1,0 +1,1 @@
+/home/victor/CG/asciidoc-8.6.9/asciidoc.py -f /home/victor/CG/asciidoc-8.6.9/xhtml11.conf -a scriptsdir=/home/victor/CG/asciidoc-8.6.9/javascripts/ -a stylesdir=/home/victor/CG/asciidoc-8.6.9/stylesheets/ -a xhtml Lab1.asc
