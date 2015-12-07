@@ -23,9 +23,9 @@ Marte por 25 +
 Jupiter por 52 +
 Saturno a Plutão por uma equação 10*c, onde  c varia de 7 a 10. +
 7. Coluna M representa o lado A, que é metade do maior diâmetro da elipse, correspondendo a soma do periélio e afélio e dividido por 2 (ver representação imagem 3). +
-8. Coluna N representa a excentricidade representa uma relação entre os diâmetros dos raios de lado A e B(lado correspondente ao menor diâmetro). A formula da excentricidade é dada por e=sqrt(1- b^2^/a^2^). +
+8. Coluna N mostra a excentricidade que representa uma relação entre os diâmetros dos raios de lado A e B(lado correspondente ao menor diâmetro). A formula da excentricidade é dada por e=sqrt(1- b^2^/a^2^). +
 9. Coluna O representa o lado B calculado através da modificação da equação da excentricidade para b=sqrt(a^2^(-e^2^+1)). +
-10. Coluna P representa o foco solar, ou seja, o local ende o sol está localizado que corresponde ao meio do diâmetro maior mais um deslocamento dado por lado A*excentricidade ou lado A menos periélio. +
+10. Coluna P representa o foco solar, ou seja, o local onde o sol está localizado que corresponde ao meio do diâmetro maior mais um deslocamento dado por lado A*excentricidade ou lado A menos periélio. +
 11. Coluna Q mostra o tempo em dias para cada corpo dar uma volta em torno de si em dias.
 12. Coluna R mostra os inversamente proporcionais multiplicados por 40, visto que quanto maior o valor mais lento ele deve ser em sua rotação. Após isso todos os valores foram normalizados pelo valor da terra. +
 
@@ -36,15 +36,13 @@ image::img3.png[]
 image::img2.png[]
 
 ==== Breve explicação do código (orbitas, translação e rotação)
-1. 8 dos 9 planetas somente orbitam em torno dos eixos X e Y, com exceção de plutão. +
+1. 8 dos 9 planetas somente orbitam em função de X e Y, com exceção de plutão. +
 2. Foi convencionado que X seria raio correspondente ao lado B(fator que multiplica o cosseno) e Y seria correspondente ao raio de lado A(fator que multiplica o seno), 
 podemos observar porém que o raio de lado A varia com relação ao sol, de forma que lado A + dist. centro a posição solar para a parte positiva do seno corresponde ao Afélio, parte mais afastada do sol e 
 lado A + dist. centro a posição solar para a parte negativa do seno corresponde ao Periélio. O fator que multiplica o a(0.5 no exemplo abaixo) corresponde a velocidade de translação do corpo celeste em órbita.
 A variável a sempre que a função ao qual o código faz parte é chamada é incrementada, fazendo com que haja variação dos valores.
-3. A estrutura mostradas no código abaixo mostram como foi feito respectivamente a órbita e a translação do planeta, vale ressaltar que estão em funções distintas, a órbita faz parte da lista orbita, enquanto que a translação
-é lançada na função glutDisplayFunc(Desenha). +
-4. Foram usados valores aleatórios de velocidade de órbita para as luas exceto para a lua da terra. +
-5. A rotação dos planetas é aplicada na função glRotated e giram em relação ao eixo Z.
+3. Foram usados valores aleatórios de velocidade de órbita para as luas exceto para a lua da terra. +
+4. A rotação dos planetas é aplicada na função glRotated e giram em relação ao eixo Z.
 
 .Código Órbita(exemplo Netuno)
 -----------------------------------------------------------------
