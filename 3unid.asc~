@@ -41,8 +41,10 @@ image::img2.png[]
 podemos observar porém que o raio de lado A varia com relação ao sol, de forma que lado A + dist. centro a posição solar para a parte positiva do seno corresponde ao Afélio, parte mais afastada do sol e 
 lado A + dist. centro a posição solar para a parte negativa do seno corresponde ao Periélio. O fator que multiplica o a(0.5 no exemplo abaixo) corresponde a velocidade de translação do corpo celeste em órbita.
 A variável a sempre que a função ao qual o código faz parte é chamada é incrementada, fazendo com que haja variação dos valores.
-3. Foram usados valores aleatórios de velocidade de órbita para as luas exceto para a lua da terra. +
-4. A rotação dos planetas é aplicada na função glRotated e giram em relação ao eixo Z.
+3. A estrutura mostradas no código abaixo mostram como foi feito respectivamente a órbita e a translação do planeta, vale ressaltar que estão em funções distintas, a órbita faz parte da lista orbita, enquanto que a translação
+é lançada na função glutDisplayFunc(Desenha). +
+4. Foram usados valores aleatórios de velocidade de órbita para as luas exceto para a lua da terra. +
+5. A rotação dos planetas é aplicada na função glRotated e giram em relação ao eixo Z.
 
 .Código Órbita(exemplo Netuno)
 -----------------------------------------------------------------

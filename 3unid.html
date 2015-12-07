@@ -758,7 +758,7 @@ Coluna B mostra os valores para raio equatorial dos corpos celestes em km.<br />
 </li>
 <li>
 <p>
-Coluna D mostra o diametro dos corpos divididos por 10<sup>5</sup>. Nem todos os valores foram representados tais quais a tabela, visto que o sol teria uma massa 100 vezes maior que a da terra e alguns planetas o que dificultaria o visualização.<br />
+Coluna D mostra o diametro dos corpos divididos por 10<sup>5</sup>. Nem todos os valores foram representados tais quais a tabela, visto que o sol teria um diâmetro 100 vezes maior que a da terra e alguns planetas o que dificultaria o visualização.<br />
 </p>
 </li>
 <li>
@@ -782,7 +782,7 @@ Colunas G e H representam os valores de Afélio e Periélio em dimensões de 10<
 <p>
 Colunas I e J representam as colunas G e H com uma simplificação matemática.<br />
 Para uma aproximação mais adequada a visualização os afélios e periélios por:<br />
-Mercúrio e Vênus por 18+
+Mercúrio e Vênus por 18<br />
 Terra por 20<br />
 Marte por 25<br />
 Jupiter por 52<br />
@@ -844,15 +844,9 @@ Coluna R mostra os inversamente proporcionais multiplicados por 40, visto que qu
 <li>
 <p>
 Foi convencionado que X seria raio correspondente ao lado B(fator que multiplica o cosseno) e Y seria correspondente ao raio de lado A(fator que multiplica o seno),
-podemos observar porém que o raio de lado A varia com relação ao sol, de forma que lado A + dist. centro ao foco solar para a parte positiva do seno corresponde ao Afélio, parte mais afastada do sol e
-lado A + dist. centro ao foco solar para a parte negativa do seno corresponde ao Periélio. O fator que multiplica o a(0.5 no exemplo abaixo) corresponde a velocidade de translação do corpo celeste em órbita.
-A variável a sempre que a função ao qual o código faz parte é chamada é incrementada, fazendo com que haja variação dos valores.+
-</p>
-</li>
-<li>
-<p>
-A estrutura mostradas no código abaixo mostram como foi feito respectivamente a órbita e a translação do planeta, vale ressaltar que estão em funções distintas, a órbita faz parte da lista orbita, enquanto que a translação
-é lançada na função glutDisplayFunc(Desenha).<br />
+podemos observar porém que o raio de lado A varia com relação ao sol, de forma que lado A + dist. centro a posição solar para a parte positiva do seno corresponde ao Afélio, parte mais afastada do sol e
+lado A + dist. centro a posição solar para a parte negativa do seno corresponde ao Periélio. O fator que multiplica o a(0.5 no exemplo abaixo) corresponde a velocidade de translação do corpo celeste em órbita.
+A variável a sempre que a função ao qual o código faz parte é chamada é incrementada, fazendo com que haja variação dos valores.
 </p>
 </li>
 <li>
@@ -862,7 +856,7 @@ Foram usados valores aleatórios de velocidade de órbita para as luas exceto pa
 </li>
 <li>
 <p>
-A rotação dos planetas é aplicada na função glRotated e giram em relação ao eixo X.
+A rotação dos planetas é aplicada na função glRotated e giram em relação ao eixo Z.
 </p>
 </li>
 </ol></div>
@@ -949,7 +943,7 @@ Vênus e Urano giram em sentido contrário a todos os outros corpos do sistema s
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-12-07 19:30:55 BRT
+Last updated 2015-12-07 19:46:30 BRT
 </div>
 </div>
 </body>
